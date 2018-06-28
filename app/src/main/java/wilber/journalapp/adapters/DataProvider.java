@@ -1,10 +1,19 @@
 package wilber.journalapp.adapters;
 
 public class DataProvider {
+
+    private String id;
     private  String time;
     private String title;
     private String body;
     private String last_edited;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getLast_edited() {
         return last_edited;
@@ -38,7 +47,8 @@ public class DataProvider {
         this.time = time;
     }
 
-    public DataProvider(String time, String title,String body,String last_edited){
+    public DataProvider(String id,String time, String title,String body,String last_edited){
+        this.id=id;
         this.time=time;
         this.title=title;
         this.body=body;

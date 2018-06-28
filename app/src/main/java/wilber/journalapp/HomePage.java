@@ -83,6 +83,7 @@ public class HomePage extends AppCompatActivity {
         }
     }
     public void loadDiary(){
+        listdataAdapter.clear();
         try {
             //pick from sqlite
             databaseConnections();
@@ -95,10 +96,11 @@ public class HomePage extends AppCompatActivity {
                     last_edited="edited on "+c.getString(2);
                     title=c.getString(3);
                     body=c.getString(4);
-                    DataProvider dataProvider=new DataProvider(time,title,body,last_edited);
+                    DataProvider dataProvider=new DataProvider(c.getString(0),time,title,body,last_edited);
                     listdataAdapter.add(dataProvider);
                 }while (c.moveToNext());
             }
+            listdataAdapter.notifyDataSetChanged();
         }
         catch (Exception ex){
             Toast.makeText(this, "No diary data uploaded", Toast.LENGTH_SHORT).show();

@@ -60,6 +60,7 @@ public class ListDataAdapter extends ArrayAdapter {
         layoutHandler.TITLE.setText(dataProvider.getTitle());
         layoutHandler.BODY.setText(dataProvider.getBody());
         layoutHandler.LAST_EDITED.setText(dataProvider.getLast_edited());
+
         return row;
     }
 }
