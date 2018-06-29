@@ -1,13 +1,17 @@
 package wilber.journalapp;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,6 +41,14 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addDiaryModel();
+            }
+        });
+        results_list_view.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                long id=listdataAdapter.getItemId(i);
+                Toast.makeText(HomePage.this, "ID="+id, Toast.LENGTH_SHORT).show();
+                return false;
             }
         });
     }
@@ -105,6 +117,33 @@ public class HomePage extends AppCompatActivity {
         catch (Exception ex){
             Toast.makeText(this, "No diary data uploaded", Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.delete_all) {
+            databaseConnections();
+            database.execSQL("DELETE FROM diary_tb");
+            listdataAdapter.clear();
+            results_list_view.setAdapter(null);
+            results_list_view.setAdapter(listdataAdapter);
+        }else if (id == R.id.logout) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
