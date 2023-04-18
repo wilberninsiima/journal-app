@@ -1,4 +1,4 @@
-# Journel App (Notes application- Java)
+# Journal App (Notes application- Java)
 This application is intended to manage the users diary and notes.
 
 The application has only internet permissions enabled since it connects and logs in using google account.
